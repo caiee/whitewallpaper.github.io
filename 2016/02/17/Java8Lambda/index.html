@@ -1,0 +1,751 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Funtional Programming," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="前言额。从去年冬天开始学习了Java的函数式编程，用法是掌握的差不多了，概念方面还是很模糊，从OOP转到FP真是需要一定的时间啊。且学习也是一直断断续续的，掌握的并不扎实，希望以后如果懂了其中的一些奥妙，再来补充上吧。这篇博文仅为作一个记录，写一点用法相关，且给未来复习作一个便利。
+Java8 新特性Java 8为我们带来了很多的特性，而里面最重要的，在我来看，是接口的default方法以及Lam">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 8 Lambda Expression.md">
+<meta property="og:url" content="http://yoursite.com/2016/02/17/Java8Lambda/index.html">
+<meta property="og:site_name" content="蔡萼的博客">
+<meta property="og:description" content="前言额。从去年冬天开始学习了Java的函数式编程，用法是掌握的差不多了，概念方面还是很模糊，从OOP转到FP真是需要一定的时间啊。且学习也是一直断断续续的，掌握的并不扎实，希望以后如果懂了其中的一些奥妙，再来补充上吧。这篇博文仅为作一个记录，写一点用法相关，且给未来复习作一个便利。
+Java8 新特性Java 8为我们带来了很多的特性，而里面最重要的，在我来看，是接口的default方法以及Lam">
+<meta property="og:updated_time" content="2016-04-23T12:35:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 8 Lambda Expression.md">
+<meta name="twitter:description" content="前言额。从去年冬天开始学习了Java的函数式编程，用法是掌握的差不多了，概念方面还是很模糊，从OOP转到FP真是需要一定的时间啊。且学习也是一直断断续续的，掌握的并不扎实，希望以后如果懂了其中的一些奥妙，再来补充上吧。这篇博文仅为作一个记录，写一点用法相关，且给未来复习作一个便利。
+Java8 新特性Java 8为我们带来了很多的特性，而里面最重要的，在我来看，是接口的default方法以及Lam">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Java 8 Lambda Expression.md | 蔡萼的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">蔡萼的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">where notes noting</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java 8 Lambda Expression.md
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-17T17:46:50+08:00" content="2016-02-17">
+              2016-02-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Funtional-Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Funtional Programming</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>额。<br>从去年冬天开始学习了Java的函数式编程，用法是掌握的差不多了，概念方面还是很模糊，从OOP转到FP真是需要一定的时间啊。<br>且学习也是一直断断续续的，掌握的并不扎实，希望以后如果懂了其中的一些奥妙，再来补充上吧。<br>这篇博文仅为作一个记录，写一点用法相关，且给未来复习作一个便利。</p>
+<h4 id="Java8-新特性"><a href="#Java8-新特性" class="headerlink" title="Java8 新特性"></a>Java8 新特性</h4><p>Java 8为我们带来了很多的特性，而里面最重要的，<br>在我来看，是接口的default方法以及Lambda表达式。<br>接口中提供了可以直接定义方法的实现，<br>如果所有子类都通用这个方法，那就不需要再在子类重写该方法了；<br><a id="more"></a></p>
+<p>例如集合的forEach方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">forEach</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; action)</span> </span>&#123;</span><br><span class="line">        Objects.requireNonNull(action);</span><br><span class="line">        <span class="keyword">for</span> (T t : <span class="keyword">this</span>) &#123;</span><br><span class="line">            action.accept(t);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这是Java 8更新后 Iterable 接口中定义的方法，<br>这个方法简单的说其实就是传一个Consumer(消费)的方法，接着集合中所有的元素都会逐个的按照消费的方法执行；<br>比如<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; numbers = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>);</span><br><span class="line">number.foreach(i -&gt; System.out.print(i));</span><br><span class="line"><span class="comment">// i 是这个集合循环时的每一个元素</span></span><br><span class="line"><span class="comment">// 输出 : 12345678</span></span><br></pre></td></tr></table></figure></p>
+<p>而我们在Lambda出现之前如果想有同样的功能，我们只能<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Integer number : numbers) &#123;</span><br><span class="line">    System.out.print(number);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这两段代码从学术上来说是 函数式编程 与 命令式编程。<br>当代码逻辑复杂的时候，循环嵌套判断句再加上一些别的逻辑，<br>在这个for each loop里就会显得非常难堪易懂。<br>Java正是由于样板代码太多一直被人所诟病，例如这个for each，pojo 中的 setter getter等等。<br>Lambda的出现一定程度上缓解了循环的样板代码太多的问题。</p>
+<p>随着时间的推移，我觉得编程者应该是站在高度去思考问题，不必去纠结底层的细节，<br>而因为多封装一层导致了运行速度变慢了一点，一定是可以接受的。<br>借用一句话就是 ： “tell what, not how”。<br>我们只需要告诉它我们要什么，怎么做就是它的事情了。</p>
+<h4 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h4><p>Lambda中最主要的就是Stream类中的filter map reduce collect 这几个方法了。</p>
+<h5 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h5><p>filter方法顾名思义是过滤的意思，相当于if条件句，过滤出满足条件的元素。<br>在调用filter前我们必须先调用流方法.stream or Stream.of()</p>
+<p>比如我们要在一个元素全部为数组的集合中筛选出大于10的元素<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; stream = numbers.stream</span><br><span class="line">                                .filter(i -&gt; i &gt; <span class="number">10</span>);</span><br><span class="line">                                <span class="comment">// filter返回的是筛选后的流对象</span></span><br><span class="line">stream.foreach(System.out::println);</span><br><span class="line">System.out::println 这个写法 等同于 System.out.println(i);</span><br><span class="line">因为如果只有一个形参的时候，还按照原来的 i -&gt; System.out.println(i);</span><br><span class="line">感觉就有点累赘，于是就有了更为简单的写法。 这称为 方法引用.</span><br></pre></td></tr></table></figure></p>
+<h5 id="方法引用"><a href="#方法引用" class="headerlink" title="方法引用"></a>方法引用</h5><p>方法引用也分为几种情况</p>
+<ol>
+<li>直接调用static方法 如 Objects::isNull</li>
+<li>调用实例方法 Person person = new Person(); person::getAge;</li>
+<li>构造方法 Person::new</li>
+</ol>
+<h5 id="map"><a href="#map" class="headerlink" title="map"></a>map</h5><p>map方法相当于是映射的意思，意于将集合中的元素映射成另外一个值。</p>
+<p>比如我们要在上述基础上，把筛选出的元素每一个都乘以5，完整的写法为：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;Integer&gt; stream = number.stream</span><br><span class="line">                               .filter(i -&gt; i &gt; <span class="number">10</span>)</span><br><span class="line">                               .map(i -&gt; i / <span class="number">5</span>);</span><br><span class="line">                               <span class="comment">// map返回的是映射后的流对象</span></span><br><span class="line"><span class="comment">// 我们也可以拿着这个流再接着操作</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h5><p>reduce 是一个累加的意思，意与将集合中的元素都累加起来。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; numbers = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>);</span><br><span class="line">Optional&lt;Integer&gt; optional = numbers.stream</span><br><span class="line">                                    .reduce((a, b) -&gt; a + b);</span><br><span class="line">System.out.println(optional.get());</span><br><span class="line">会输出<span class="number">21</span>，即numbers集合中所有元素的累加值。</span><br></pre></td></tr></table></figure></p>
+<h5 id="Optional"><a href="#Optional" class="headerlink" title="Optional"></a>Optional</h5><p>这里会涉及到一个Optional的概念，<br>Optiona主要是为了解决null语义不明确的问题，<br>当一个方法返回null的时候，不能够清晰的描述到底是不存在还是其他的问题。<br>Java8更新了这一特性。<br>主要的方法有：<br>optional.isPresent(); 返回是的布尔类型<br>如果存在，则可以 optional.get(); 取出相应的值</p>
+<h5 id="collect"><a href="#collect" class="headerlink" title="collect"></a>collect</h5><p>collect 收集器，意与将我们筛选出来或筛选出再映射完成的流收集成为一个集合。<br>比如 我们要在上面 filter 和 map 的基础上，将元素添加到一个新的集合中，<br>此时，就可以直接用Collect收集，非常方便<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; newList = numbers.stream</span><br><span class="line">                               .filter(i -&gt; i &gt; <span class="number">10</span>)</span><br><span class="line">                               .map(i -&gt; i / <span class="number">5</span>)</span><br><span class="line">                               .collect(Collectors.toList);</span><br></pre></td></tr></table></figure></p>
+<p>利用这个收集器，还可以做很多事情。<br>再比如：<br>现在有多个Person对象，我们需要筛选出大于20岁的人名，<br>并将他们的人名赋值于一条字符串中，以逗号分隔<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Person p1 = <span class="keyword">new</span> Person(<span class="string">"张三"</span>, <span class="number">15</span>); <span class="comment">// 姓名张三，年龄15</span></span><br><span class="line">Person p2 = <span class="keyword">new</span> Person(<span class="string">"张超"</span>, <span class="number">22</span>);</span><br><span class="line">Person p3 = <span class="keyword">new</span> Person(<span class="string">"李四"</span>, <span class="number">25</span>);</span><br><span class="line">List&lt;Person&gt; persons = Arrays.asList(p1, p2 ,p3);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 原有的做法 命令式</span></span><br><span class="line">StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line"><span class="keyword">for</span> (Person p : persons) &#123;</span><br><span class="line">    <span class="keyword">if</span> (p.getAge() &gt; <span class="number">20</span>) &#123;</span><br><span class="line">        sb.append(p.getName()).append(<span class="string">","</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">sb.deleteCharAt(sb.length() - <span class="number">1</span>);</span><br><span class="line">System.out.println(sb.toString);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 还可以这样做 函数式</span></span><br><span class="line">String result = persons.stream</span><br><span class="line">                       .filter(p -&gt; p.getAge() &gt; <span class="number">20</span>)</span><br><span class="line">                       .map(Person::getName)</span><br><span class="line">                       .collect(Collectors.joining(<span class="string">","</span>));</span><br></pre></td></tr></table></figure></p>
+<p>看到这里，哪一种更爽，是不是就一目了然了。</p>
+<h4 id="自定义函数式接口"><a href="#自定义函数式接口" class="headerlink" title="自定义函数式接口"></a>自定义函数式接口</h4><p>注解：@FunctionalInterface<br>定义为： 一个接口，有且仅有一个抽象方法，就可以用这个注解来修饰。<br>我注意到，Runnable 接口上，就有这样的修饰<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 所以原来的写法</span></span><br><span class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="annotation">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"123"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"><span class="comment">// 就可以改写为， 是不是又简单了很多呢</span></span><br><span class="line"><span class="keyword">new</span> Thread(() -&gt; System.out.println(<span class="string">"123"</span>));</span><br></pre></td></tr></table></figure></p>
+<h4 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h4><p>对于Java 8的Lambda，网络上的评论都褒贬不一，<br>有专家专门进行了性能测试，<br>比较了 传统的Iterator， for each 循环， lambda 表达式 这三者的运行速度，<br>得出的lambda是最慢的，而传统Iterator迭代的方式是最快的结论。<br>以及一些lambda异常时的异常信息混乱的问题。<br>仁者见仁智者见智啦，对我而言牺牲一点性能换来简洁可读性高的代码是完全可以接受的。</p>
+<p>相关资料参考：</p>
+<ol>
+<li><a href="http://www.ruanyifeng.com/blog/2012/04/functional_programming.html" title="Title" target="_blank" rel="external">函数式编程初探 By 阮一峰</a></li>
+<li><a href="https://dzone.com/articles/springone2gx-2015-replay-transforming-code-to-java" title="Title" target="_blank" rel="external">Transforming Code to Java 8 By Dr. Venkat Subramaniam</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Funtional-Programming/" rel="tag">#Funtional Programming</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/28/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/zqq.jpeg"
+               alt="蔡萼" />
+          <p class="site-author-name" itemprop="name">蔡萼</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/cai-e-62" target="_blank">
+                  
+                    <i class="fa fa-zhihu"></i> 知乎
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/whitewallpaper" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java8-新特性"><span class="nav-number">2.</span> <span class="nav-text">Java8 新特性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Stream"><span class="nav-number">3.</span> <span class="nav-text">Stream</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#filter"><span class="nav-number">3.1.</span> <span class="nav-text">filter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#方法引用"><span class="nav-number">3.2.</span> <span class="nav-text">方法引用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#map"><span class="nav-number">3.3.</span> <span class="nav-text">map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reduce"><span class="nav-number">3.4.</span> <span class="nav-text">reduce</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Optional"><span class="nav-number">3.5.</span> <span class="nav-text">Optional</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#collect"><span class="nav-number">3.6.</span> <span class="nav-text">collect</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自定义函数式接口"><span class="nav-number">4.</span> <span class="nav-text">自定义函数式接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最后"><span class="nav-number">5.</span> <span class="nav-text">最后</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蔡萼</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

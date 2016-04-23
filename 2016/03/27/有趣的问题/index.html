@@ -1,0 +1,723 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="技术问题geek," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="1.synchronized与lock的区别，使用场景。看过synchronized的源码没2.了解过JVM调优没，基本思路是什么3.缓存的实现原理，设计缓存要注意什么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="有趣的问题">
+<meta property="og:url" content="http://yoursite.com/2016/03/27/有趣的问题/index.html">
+<meta property="og:site_name" content="蔡萼的博客">
+<meta property="og:description" content="1.synchronized与lock的区别，使用场景。看过synchronized的源码没2.了解过JVM调优没，基本思路是什么3.缓存的实现原理，设计缓存要注意什么">
+<meta property="og:updated_time" content="2016-04-23T12:37:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="有趣的问题">
+<meta name="twitter:description" content="1.synchronized与lock的区别，使用场景。看过synchronized的源码没2.了解过JVM调优没，基本思路是什么3.缓存的实现原理，设计缓存要注意什么">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 有趣的问题 | 蔡萼的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">蔡萼的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">where notes noting</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                有趣的问题
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-27T12:31:16+08:00" content="2016-03-27">
+              2016-03-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Quetions/" itemprop="url" rel="index">
+                    <span itemprop="name">Quetions</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="1-synchronized与lock的区别，使用场景。看过synchronized的源码没"><a href="#1-synchronized与lock的区别，使用场景。看过synchronized的源码没" class="headerlink" title="1.synchronized与lock的区别，使用场景。看过synchronized的源码没"></a>1.synchronized与lock的区别，使用场景。看过synchronized的源码没</h3><h3 id="2-了解过JVM调优没，基本思路是什么"><a href="#2-了解过JVM调优没，基本思路是什么" class="headerlink" title="2.了解过JVM调优没，基本思路是什么"></a>2.了解过JVM调优没，基本思路是什么</h3><h3 id="3-缓存的实现原理，设计缓存要注意什么"><a href="#3-缓存的实现原理，设计缓存要注意什么" class="headerlink" title="3.缓存的实现原理，设计缓存要注意什么"></a>3.缓存的实现原理，设计缓存要注意什么</h3><a id="more"></a>
+<h3 id="4-volatile关键字的如何保证内存可见性"><a href="#4-volatile关键字的如何保证内存可见性" class="headerlink" title="4.volatile关键字的如何保证内存可见性"></a>4.volatile关键字的如何保证内存可见性</h3><h3 id="5-happen-before原则"><a href="#5-happen-before原则" class="headerlink" title="5.happen-before原则"></a>5.happen-before原则</h3><h3 id="6-fail-fast-fail-over-fail-safe"><a href="#6-fail-fast-fail-over-fail-safe" class="headerlink" title="6.fail fast, fail over, fail safe"></a>6.fail fast, fail over, fail safe</h3><h3 id="7-Http请求的过程与原理"><a href="#7-Http请求的过程与原理" class="headerlink" title="7.Http请求的过程与原理"></a>7.Http请求的过程与原理</h3><h3 id="8-为什么TCP连接需要三次握手，两次不可以吗，为什么"><a href="#8-为什么TCP连接需要三次握手，两次不可以吗，为什么" class="headerlink" title="8.为什么TCP连接需要三次握手，两次不可以吗，为什么"></a>8.为什么TCP连接需要三次握手，两次不可以吗，为什么</h3><h3 id="9-TCP连接如何保证安全可靠的"><a href="#9-TCP连接如何保证安全可靠的" class="headerlink" title="9.TCP连接如何保证安全可靠的"></a>9.TCP连接如何保证安全可靠的</h3><h3 id="10-TCP的特点"><a href="#10-TCP的特点" class="headerlink" title="10.TCP的特点"></a>10.TCP的特点</h3><h3 id="11-了解哪设计模式，举例说说在jdk源码哪些用到了你说的设计模式"><a href="#11-了解哪设计模式，举例说说在jdk源码哪些用到了你说的设计模式" class="headerlink" title="11.了解哪设计模式，举例说说在jdk源码哪些用到了你说的设计模式"></a>11.了解哪设计模式，举例说说在jdk源码哪些用到了你说的设计模式</h3><h3 id="12-简述一张网页从服务器到用户浏览器的过程"><a href="#12-简述一张网页从服务器到用户浏览器的过程" class="headerlink" title="12.简述一张网页从服务器到用户浏览器的过程"></a>12.简述一张网页从服务器到用户浏览器的过程</h3><h3 id=""><a href="#" class="headerlink" title="#"></a>#</h3><h3 id="-1"><a href="#-1" class="headerlink" title="#"></a>#</h3><h3 id="-2"><a href="#-2" class="headerlink" title="#"></a>#</h3><h3 id="-3"><a href="#-3" class="headerlink" title="#"></a>#</h3><h3 id="-4"><a href="#-4" class="headerlink" title="#"></a>#</h3><h3 id="-5"><a href="#-5" class="headerlink" title="#"></a>#</h3><h3 id="-6"><a href="#-6" class="headerlink" title="#"></a>#</h3><h3 id="-7"><a href="#-7" class="headerlink" title="#"></a>#</h3><h3 id="-8"><a href="#-8" class="headerlink" title="#"></a>#</h3><h3 id="-9"><a href="#-9" class="headerlink" title="#"></a>#</h3><h3 id="-10"><a href="#-10" class="headerlink" title="#"></a>#</h3><h3 id="-11"><a href="#-11" class="headerlink" title="#"></a>#</h3><h3 id="-12"><a href="#-12" class="headerlink" title="#"></a>#</h3>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/技术问题geek/" rel="tag">#技术问题geek</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/26/《git学习记录》/" rel="next" title="git学习记录">
+                <i class="fa fa-chevron-left"></i> git学习记录
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/30/《重构》读书笔记/" rel="prev" title="《重构》读书笔记">
+                《重构》读书笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/zqq.jpeg"
+               alt="蔡萼" />
+          <p class="site-author-name" itemprop="name">蔡萼</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/cai-e-62" target="_blank">
+                  
+                    <i class="fa fa-zhihu"></i> 知乎
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/whitewallpaper" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-synchronized与lock的区别，使用场景。看过synchronized的源码没"><span class="nav-number">1.</span> <span class="nav-text">1.synchronized与lock的区别，使用场景。看过synchronized的源码没</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-了解过JVM调优没，基本思路是什么"><span class="nav-number">2.</span> <span class="nav-text">2.了解过JVM调优没，基本思路是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-缓存的实现原理，设计缓存要注意什么"><span class="nav-number">3.</span> <span class="nav-text">3.缓存的实现原理，设计缓存要注意什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-volatile关键字的如何保证内存可见性"><span class="nav-number">4.</span> <span class="nav-text">4.volatile关键字的如何保证内存可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-happen-before原则"><span class="nav-number">5.</span> <span class="nav-text">5.happen-before原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-fail-fast-fail-over-fail-safe"><span class="nav-number">6.</span> <span class="nav-text">6.fail fast, fail over, fail safe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Http请求的过程与原理"><span class="nav-number">7.</span> <span class="nav-text">7.Http请求的过程与原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-为什么TCP连接需要三次握手，两次不可以吗，为什么"><span class="nav-number">8.</span> <span class="nav-text">8.为什么TCP连接需要三次握手，两次不可以吗，为什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-TCP连接如何保证安全可靠的"><span class="nav-number">9.</span> <span class="nav-text">9.TCP连接如何保证安全可靠的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-TCP的特点"><span class="nav-number">10.</span> <span class="nav-text">10.TCP的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-了解哪设计模式，举例说说在jdk源码哪些用到了你说的设计模式"><span class="nav-number">11.</span> <span class="nav-text">11.了解哪设计模式，举例说说在jdk源码哪些用到了你说的设计模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-简述一张网页从服务器到用户浏览器的过程"><span class="nav-number">12.</span> <span class="nav-text">12.简述一张网页从服务器到用户浏览器的过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">13.</span> <span class="nav-text">#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-1"><span class="nav-number">14.</span> <span class="nav-text">#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-2"><span class="nav-number">15.</span> <span class="nav-text">#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-3"><span class="nav-number">16.</span> <span class="nav-text">#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-4"><span class="nav-number">17.</span> <span class="nav-text">#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-5"><span class="nav-number">18.</span> <span class="nav-text">#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-6"><span class="nav-number">19.</span> <span class="nav-text">#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-7"><span class="nav-number">20.</span> <span class="nav-text">#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-8"><span class="nav-number">21.</span> <span class="nav-text">#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-9"><span class="nav-number">22.</span> <span class="nav-text">#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-10"><span class="nav-number">23.</span> <span class="nav-text">#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-11"><span class="nav-number">24.</span> <span class="nav-text">#</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-12"><span class="nav-number">25.</span> <span class="nav-text">#</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蔡萼</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
