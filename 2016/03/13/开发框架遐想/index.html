@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="开发框架啰嗦," />
+  <meta name="keywords" content="开发框架," />
 
 
 
@@ -57,19 +57,16 @@
 
 
 
-<meta name="description" content="前言这篇博客用来记录使用开发框架时的一些tips，是因为在宅米工作了半年时间，感觉到框架方面很多都用的不是很好(平时开发)，也可能是工程师都比较年轻，资历尚浅。同时我自己也想多了解了解框架，并记录一下。
-主要围绕以下几个框架：1、 Spring MVC2、 Mybatis3、 Spring4、 Junit">
+<meta name="description" content="前言记录一些开发时有帮助的小技巧。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="开发框架啰嗦">
+<meta property="og:title" content="开发帮助拓展">
 <meta property="og:url" content="http://caie.github.io/2016/03/13/开发框架遐想/index.html">
-<meta property="og:site_name" content="蔡萼的博客">
-<meta property="og:description" content="前言这篇博客用来记录使用开发框架时的一些tips，是因为在宅米工作了半年时间，感觉到框架方面很多都用的不是很好(平时开发)，也可能是工程师都比较年轻，资历尚浅。同时我自己也想多了解了解框架，并记录一下。
-主要围绕以下几个框架：1、 Spring MVC2、 Mybatis3、 Spring4、 Junit">
-<meta property="og:updated_time" content="2016-04-23T12:36:55.000Z">
+<meta property="og:site_name" content="蔡萼的学习记录">
+<meta property="og:description" content="前言记录一些开发时有帮助的小技巧。">
+<meta property="og:updated_time" content="2016-04-28T01:02:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="开发框架啰嗦">
-<meta name="twitter:description" content="前言这篇博客用来记录使用开发框架时的一些tips，是因为在宅米工作了半年时间，感觉到框架方面很多都用的不是很好(平时开发)，也可能是工程师都比较年轻，资历尚浅。同时我自己也想多了解了解框架，并记录一下。
-主要围绕以下几个框架：1、 Spring MVC2、 Mybatis3、 Spring4、 Junit">
+<meta name="twitter:title" content="开发帮助拓展">
+<meta name="twitter:description" content="前言记录一些开发时有帮助的小技巧。">
 
 
 
@@ -87,7 +84,7 @@
   };
 </script>
 
-  <title> 开发框架啰嗦 | 蔡萼的博客 </title>
+  <title> 开发帮助拓展 | 蔡萼的学习记录 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -118,7 +115,7 @@
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">蔡萼的博客</span>
+      <span class="site-title">蔡萼的学习记录</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
@@ -217,7 +214,7 @@
             
             
               
-                开发框架啰嗦
+                开发帮助拓展
               
             
           </h1>
@@ -275,35 +272,15 @@
       
 
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>这篇博客用来记录使用开发框架时的一些tips，<br>是因为在宅米工作了半年时间，感觉到框架方面很多都用的不是很好(平时开发)，<br>也可能是工程师都比较年轻，资历尚浅。<br>同时我自己也想多了解了解框架，并记录一下。</p>
-<p>主要围绕以下几个框架：<br>1、 Spring MVC<br>2、 Mybatis<br>3、 Spring<br>4、 Junit<br><a id="more"></a></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>记录一些开发时有帮助的小技巧。</p>
+<a id="more"></a>
 <hr>
-<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><h4 id="1、-Spring-MVC"><a href="#1、-Spring-MVC" class="headerlink" title="1、 Spring MVC"></a>1、 Spring MVC</h4><p>Spring MVC是Spring提供的WEB框架，与之相比较的是Struts等，还有Jersey。<br>但Struts自从出了那个安全漏洞之后，用它的公司就越来越少了。<br>Jersey也是一个蛮不错的框架，在我哥公司的项目中看到过学习过。<br>不过Jerse和Spring MVC大体上给我的感觉都差不多。<br>下面仅仅是讲讲个人心得.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@RequestMapping</span>(value = <span class="string">"/auth/member"</span>, method = RequestMethod.POST)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ReturnValue <span class="title">addMember</span><span class="params">(@RequestBody Map&lt;Object, Object&gt; object)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 中文,数字,字母</span></span><br><span class="line">    String name = (String) object.get(<span class="string">"name"</span>);</span><br><span class="line">    name = name.trim();</span><br><span class="line">    String password;</span><br><span class="line">    String phone = <span class="keyword">null</span>;</span><br><span class="line">    String email = <span class="keyword">null</span>;</span><br><span class="line">    <span class="comment">// 判断用户名是否符合规则</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.filterStr(name)) &#123;</span><br><span class="line">        <span class="keyword">return</span> ReturnValue.generateFalseReturnValue(<span class="number">400</span>, <span class="string">"用户名只能为数字、中文、字母"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (name.getBytes().length &lt; <span class="number">4</span> || name.getBytes().length &gt; <span class="number">20</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> ReturnValue.generateFalseReturnValue(<span class="number">400</span>, <span class="string">"用户名长度为4-20位"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 判断密码是否符合规则</span></span><br><span class="line">    <span class="keyword">if</span> (object.get(<span class="string">"password"</span>) == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> ReturnValue.generateFalseReturnValue(<span class="number">400</span>, <span class="string">"密码不能为空"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        password = (String) object.get(<span class="string">"password"</span>);</span><br><span class="line">        <span class="keyword">if</span> (password.length() &lt; <span class="number">6</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> ReturnValue.generateFalseReturnValue(<span class="number">400</span>, <span class="string">"密码长度不能小于6位"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (object.get(<span class="string">"phone"</span>) != <span class="keyword">null</span>) &#123;</span><br><span class="line">        phone = (String) object.get(<span class="string">"phone"</span>);</span><br><span class="line">        <span class="keyword">boolean</span> flag = ValidateHelper.isPhone(phone);</span><br><span class="line">        <span class="keyword">if</span> (!flag) &#123;</span><br><span class="line">            <span class="keyword">return</span> ReturnValue.generateFalseReturnValue(<span class="number">400</span>, <span class="string">"请填写正确的手机号！"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (object.get(<span class="string">"email"</span>) != <span class="keyword">null</span>) &#123;</span><br><span class="line">        email = (String) object.get(<span class="string">"email"</span>);</span><br><span class="line">        <span class="keyword">boolean</span> flag = ValidateHelper.isEmail(email);</span><br><span class="line">        <span class="keyword">if</span> (!flag) &#123;</span><br><span class="line">            <span class="keyword">return</span> ReturnValue.generateFalseReturnValue(<span class="number">400</span>, <span class="string">"请填写正确的邮箱！"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> memberService.addMember(name, password, phone, email);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这是宅米用户APP关于用户注册的后台API，从这段代码可以发现很多问题。</p>
-<p><strong>1.</strong> 方法的入参是一个 Map类型的Key，Value均为Object的值。</p>
-<blockquote>
-<p><strong>1)</strong> 意味着这个方法可以接收无限多的参数，而框架面对无限多的参数时，也不需要去考虑什么，直接转为Object放进Map里就好了。<br><strong>2)</strong> 同事想来维护这段代码时，单看这个入参，无法快速的得到从前端接收了哪些参数。还得去看代码，看从这个Map拿出了哪些参数。<br><strong>3)</strong> 由于是一个Value为Object的Map，所以在方法的代码中会出现很多(Something)map.get(“something”)这样的nosiy code，导致代码的不清晰，维护成本高等等。<br>  <strong>应对</strong>：<br>对于这个方法所接受参数，创建一个pojo类，将每一个参数都列为pojo类中的字段，方法入参时用具体的pojo类来接受(框架会帮我们自动转)。</p>
-</blockquote>
-<p><strong>3.</strong> 参数非空判断与长度等校验逻辑放在了方法中，这也是极不合理的，造成方法的nosiy code极多，方法极难理解。</p>
-<blockquote>
-<p><strong>应对</strong>：<br>可以借助hibernate-validate完成。前提是接受的参数是一个pojo类，在这个类的每一个需要校验的字段上添加上我们需要的逻辑即可。</p>
-</blockquote>
-<p><strong>4.</strong> 一个方法中有多处出口，这是反模式的。</p>
-<blockquote>
-<p>在学术上来说，一个方法最好的情况是一个出口。<br>这个情况仁者见仁智者见智吧。</p>
-</blockquote>
-<p><strong>5.</strong> 方法的返回值是一个ReturnValue，so what is returnvalue???</p>
-<blockquote>
-<p>被一个交大的哥们吐槽之后，他用一己之力拯救了我们。。。<br>实现了Spring MVC提供的ResponseBodyAdvice，在输出前再做一层包装。<br>这样的话我们的方法就可以随意返回想要的东西了，更加清晰。</p>
-</blockquote>
-<h4 id="By-the-way"><a href="#By-the-way" class="headerlink" title="By the way"></a>By the way</h4><p>Spring 4也支持了 Java8 中的Optional，这意味着我们可以在方法的入参中使用Optional类。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@RequestMapping</span>(“/accounts/&#123;accountId&#125;”,requestMethod=RequestMethod.POST)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(Optional&lt;String&gt; accountId, @RequestBody Account account)</span></span></span><br></pre></td></tr></table></figure></p>
+<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><h4 id="1、-Spring-MVC"><a href="#1、-Spring-MVC" class="headerlink" title="1、 Spring MVC"></a>1、 Spring MVC</h4><p>Spring 4支持了 Java8 中的Optional，这意味着我们可以在方法的入参中使用Optional类。<br>Optional为万恶之源，更是被称为 <code>millions dollars mistakes</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@RequestMapping</span>(“/accounts/&#123;accountId&#125;”, requestMethod=RequestMethod.POST)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(Optional&lt;String&gt; accountId, @RequestBody Account account)</span></span></span><br></pre></td></tr></table></figure></p>
 <p>这意味着我们在方法的代码中可以潇洒的使用，<br>accountId.ifPresent(accountId -&gt; doSomething);<br>热爱函数式编程猿的最爱！<br>遗憾是的Mybatis并没有提供这样的支持，<br>我们还是需要在Mybatis查出来的数据上作 if (result == null) 类似的判断，<br>这种nosiy code，真的很让猿心伤。。希望Mybatis能够更新并支持它吧！</p>
 <hr>
 <h4 id="2-Mybatis"><a href="#2-Mybatis" class="headerlink" title="2. Mybatis"></a>2. Mybatis</h4><p>Mybatis和Hibernate一样，都是数据库框架，<br>而前者更是称为只需要懂Java和Sql就可以用好的一个框架，维护也更加方便；<br>后者相对门槛高得多，对象的级联关系等等，一不小心就是一个递归删除。</p>
-<p>然而我发现公司的项目在使用Mybatis的时候，很多框架提供的特性和精华都没有用到，<br>比如dao层写了实现类，这其实是多余的，因为mybatis提供动态代理将接口和xml关联。<br>造成出现原本很多本不应该出现的代码，nosiy code..<br>还有一些配置上的问题，</p>
-<p>1 mybatis需要把所有的xml都收集起来<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id="simpleSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"&gt;</span><br><span class="line">        &lt;property name="dataSource" ref="dynamicDataSource"/&gt;</span><br><span class="line">        &lt;property name="mapperLocations" value="**/mapper/*Mapper.xml"/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">正确的做法是通过通配符把所有的都扫描进来。</span><br><span class="line">而原来的做法是一个个添加到配置文件中，再将那个配置文件配置进来，</span><br><span class="line">这样的话开发人员只要添加一个对应的mapper.xml就得加一次配置文件，一有疏忽，就会有问题。</span><br></pre></td></tr></table></figure></p>
-<p>2 mybatis中有别名的概念<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 获取所有获奖者 --&gt;</span><br><span class="line">&lt;select id="getAllAwardedUser" resultType="com.qianye.zhaimi.promotion.entity.model.ReTurnTableAward"&gt;</span><br><span class="line">    select name,phone,award_name awardname from **** where name is not null and name != ''</span><br><span class="line">    and created_at &gt; '2015-11-20 12:04:21' order by updated_at desc limit 0,15</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
-<p>只需要在spring和mybatis整合的配置文件中，加入别名包扫描配置<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- mybatis与spring整合配置 --&gt;</span><br><span class="line">&lt;bean id="simpleSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"</span><br><span class="line">    p:dataSource-ref="dynamicDataSource"</span><br><span class="line">    p:mapperLocations="classpath*:**/mapper/*Mapper.xml"</span><br><span class="line">    p:typeAliasesPackage="com.qianye.zhaimi.promotion.entity"/&gt;</span><br><span class="line">就可以将这个mapper.xml中的resultType改为具体的类名，减少noisy code</span><br><span class="line">&lt;!-- 获取所有获奖者 --&gt;</span><br><span class="line">&lt;select id="getAllAwardedUser" resultType="ReTurnTableAward"&gt;</span><br><span class="line">    select name,phone,award_name awardname from **** where name is not null and name != ''</span><br><span class="line">    and created_at &gt; '2015-11-20 12:04:21' order by updated_at desc limit 0,15</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
+<p>1 mybatis需要把所有的xml都收集起来<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id="simpleSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"&gt;</span><br><span class="line">        &lt;property name="dataSource" ref="dynamicDataSource"/&gt;</span><br><span class="line">        &lt;property name="mapperLocations" value="**/mapper/*Mapper.xml"/&gt;</span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+<p>2 mybatis中有别名的概念<br>只需要在spring和mybatis整合的配置文件中，加入别名包扫描配置<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- mybatis与spring整合配置 --&gt;</span><br><span class="line">&lt;bean id="simpleSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"</span><br><span class="line">    p:dataSource-ref="dynamicDataSource"</span><br><span class="line">    p:mapperLocations="classpath*:**/mapper/*Mapper.xml"</span><br><span class="line">    p:typeAliasesPackage="com.qianye.zhaimi.promotion.entity"/&gt;</span><br><span class="line">就可以将这个mapper.xml中的resultType改为具体的类名，减少noisy code</span><br><span class="line">&lt;!-- 获取所有获奖者 --&gt;</span><br><span class="line">&lt;select id="getAllAwardedUser" resultType="ReTurnTableAward"&gt;</span><br><span class="line">    select name,phone,award_name awardname from **** where name is not null and name != ''</span><br><span class="line">    and created_at &gt; '2015-11-20 12:04:21' order by updated_at desc limit 0,15</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure></p>
 <p>3 typeHanlders<br>这个细节也是我在翻阅 Java.Persistence.with.Mybatis.3(2013,6)中学习到的。<br>具体的用法是：<br>mybatis在生成一条insert xml时，其实也是先生成PreparedStatement，形成占位符，<br>再一个个值的set，比如如果类型是String，就setString；类型是int，就setInt。<br>而有一种情况非常特殊：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line">    <span class="keyword">private</span> PhoneNumber phoneNumber;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PhoneNumber</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String countryCode;</span><br><span class="line">    <span class="keyword">private</span> String stateCode;</span><br><span class="line">    <span class="keyword">private</span> String number;</span><br><span class="line">&#125;</span><br><span class="line">插入这个学生信息的语句将是这个样子：</span><br><span class="line">&lt;insert id=<span class="string">"insertStudent"</span> parameterType=<span class="string">"Student"</span>&gt;</span><br><span class="line">     <span class="function">insert into <span class="title">students</span><span class="params">(name,email,phone)</span></span><br><span class="line">     <span class="title">values</span><span class="params">(#&#123;name&#125;,#&#123;email&#125;,#&#123;phoneNumber&#125;)</span></span><br><span class="line">&lt;/insert&gt;</span><br><span class="line">这个字段是一个类，框架无法识别到底set哪一个类型的值，也不知道set的是哪一个value。</span><br><span class="line">此时mybatis为我们做了一个抽象，</span><br><span class="line">只需要继承BaseTypeHandler&lt;T&gt;，重写方法就可以了。</span><br><span class="line"><span class="keyword">public</span> class PhoneTypeHandler extends BaseTypeHandler&lt;PhoneNumber&gt;</span><br><span class="line">       </span>&#123;</span><br><span class="line">         <span class="annotation">@Override</span></span><br><span class="line">         <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNonNullParameter</span><span class="params">(PreparedStatement ps, <span class="keyword">int</span> i,</span><br><span class="line">             PhoneNumber parameter, JdbcType jdbcType)</span> <span class="keyword">throws</span></span><br><span class="line">       SQLException </span>&#123;</span><br><span class="line">           ps.setString(i, parameter.getAsString());</span><br><span class="line">           <span class="comment">// 可以自行设置我们想要设置的属性</span></span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure></p>
 <p>4 mybatis的两种用法<br>它支持在mapper的接口上直接写注解@insert @update @delete @select等注解，<br>不过那样写并不简单明了，且resultMap之类的通过注解也不能重用，<br>只能将resultMap先定义在相应的mapper.xml文件中，再回来引用那一个resultMap。<br>我个人更倾向于把sql语句全部写在mapper.xml中，更加清晰，也易于管理，维护等。</p>
 <hr>
@@ -327,7 +304,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/开发框架啰嗦/" rel="tag">#开发框架啰嗦</a>
+            <a href="/tags/开发框架/" rel="tag">#开发框架</a>
           
         </div>
       
@@ -414,7 +391,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -422,7 +399,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -431,7 +408,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -483,7 +460,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、-Spring-MVC"><span class="nav-number">2.1.</span> <span class="nav-text">1、 Spring MVC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#By-the-way"><span class="nav-number">2.2.</span> <span class="nav-text">By the way</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Mybatis"><span class="nav-number">2.3.</span> <span class="nav-text">2. Mybatis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Spring"><span class="nav-number">2.4.</span> <span class="nav-text">3. Spring</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Junit"><span class="nav-number">2.5.</span> <span class="nav-text">4. Junit</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正文"><span class="nav-number">2.</span> <span class="nav-text">正文</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、-Spring-MVC"><span class="nav-number">2.1.</span> <span class="nav-text">1、 Spring MVC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-Mybatis"><span class="nav-number">2.2.</span> <span class="nav-text">2. Mybatis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Spring"><span class="nav-number">2.3.</span> <span class="nav-text">3. Spring</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Junit"><span class="nav-number">2.4.</span> <span class="nav-text">4. Junit</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
