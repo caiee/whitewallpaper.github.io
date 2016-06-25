@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="git," />
+  <meta name="keywords" content="Git," />
 
 
 
@@ -57,16 +57,16 @@
 
 
 
-<meta name="description" content="前言在工作中使用到的git命令总是那么几个git add ; git commit ; git merge ; git push ; git pull ; git rebase –continue ;当自己想玩一玩github创建项目之类的则是无从下手，索性把命令记录下来。">
+<meta name="description" content="前言在工作中使用到的git命令总是那么几个git add ; git commit ; git merge ; git push ; git pull;当自己想玩一玩github创建项目之类的则是无从下手，索性把命令记录下来。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git学习记录">
+<meta property="og:title" content="Git学习记录">
 <meta property="og:url" content="http://caie.github.io/2016/03/26/《git学习记录》/index.html">
 <meta property="og:site_name" content="蔡萼的学习记录">
-<meta property="og:description" content="前言在工作中使用到的git命令总是那么几个git add ; git commit ; git merge ; git push ; git pull ; git rebase –continue ;当自己想玩一玩github创建项目之类的则是无从下手，索性把命令记录下来。">
-<meta property="og:updated_time" content="2016-04-23T12:37:10.000Z">
+<meta property="og:description" content="前言在工作中使用到的git命令总是那么几个git add ; git commit ; git merge ; git push ; git pull;当自己想玩一玩github创建项目之类的则是无从下手，索性把命令记录下来。">
+<meta property="og:updated_time" content="2016-06-25T09:04:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git学习记录">
-<meta name="twitter:description" content="前言在工作中使用到的git命令总是那么几个git add ; git commit ; git merge ; git push ; git pull ; git rebase –continue ;当自己想玩一玩github创建项目之类的则是无从下手，索性把命令记录下来。">
+<meta name="twitter:title" content="Git学习记录">
+<meta name="twitter:description" content="前言在工作中使用到的git命令总是那么几个git add ; git commit ; git merge ; git push ; git pull;当自己想玩一玩github创建项目之类的则是无从下手，索性把命令记录下来。">
 
 
 
@@ -84,7 +84,7 @@
   };
 </script>
 
-  <title> git学习记录 | 蔡萼的学习记录 </title>
+  <title> Git学习记录 | 蔡萼的学习记录 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -214,7 +214,7 @@
             
             
               
-                git学习记录
+                Git学习记录
               
             
           </h1>
@@ -272,12 +272,16 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在工作中使用到的git命令总是那么几个<br>git add ; git commit ; git merge ; git push ; git pull ; git rebase –continue ;<br>当自己想玩一玩github创建项目之类的则是无从下手，索性把命令记录下来。<br><a id="more"></a></p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在工作中使用到的git命令总是那么几个<br>git add ; git commit ; git merge ; git push ; git pull;<br>当自己想玩一玩github创建项目之类的则是无从下手，索性把命令记录下来。<br><a id="more"></a></p>
 <h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p><code>问题一</code>：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">⇒  git push</span><br><span class="line">remote: Permission to whitewallpaper/ce-build-project.git denied to bobzhangwz.</span><br><span class="line">fatal: unable to access <span class="string">'https://github.com/whitewallpaper/ce-build-project.git/'</span></span><br><span class="line">: The requested URL returned error: <span class="number">403</span></span><br></pre></td></tr></table></figure>
 <h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git remote set-url origin ssh:<span class="comment">//git@github.com/whitewallpaper/ce-build-project.git</span></span><br></pre></td></tr></table></figure>
 <p><code>原因</code>： 不明</p>
 <p><code>二</code>：<br>本地与github的仓库建立连接：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git init 初始化本地文件夹，之后会生成一个git目录，里面会有config文件</span><br><span class="line">git config --list 此时的远程应该是空的</span><br><span class="line">git remote add origin ssh:<span class="comment">//git@github.com/whitewallpaper/ce-build-project.git 需要手动增加远程连接地址</span></span><br><span class="line">git push -u origin master 将master分支推到github项目中</span><br></pre></td></tr></table></figure></p>
+<p><code>三</code>:<br>create a new repository on the command line<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add READEME.md</span><br><span class="line">git commit -m <span class="string">"first commit"</span></span><br><span class="line">git remote add origin git<span class="annotation">@githun</span>.com:whitewallpaper/projectName.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></p>
+<p>or push an existing repository from the command line<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin git<span class="annotation">@github</span>.com:whitewallpaper/projectName.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure></p>
+<p><code>四</code>：<br><strong> git fetch </strong><br>从远程获取最新版本到本地，包括更新本地没有的远端分支</p>
+<p><code>五</code>：<br><strong> git cherrypick </strong></p>
 
       
     </div>
@@ -292,7 +296,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/git/" rel="tag">#git</a>
+            <a href="/tags/Git/" rel="tag">#Git</a>
           
         </div>
       
