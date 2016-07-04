@@ -216,8 +216,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/06/28/《并发编程-第4章-对象的组合》/" itemprop="url">
-                  《并发编程-第四章-对象的组合》
+                <a class="post-title-link" href="/2016/07/02/《并发编程-第-5-章-基础构建模块》读书笔记/" itemprop="url">
+                  《并发编程 第 5 章 基础构建模块》读书笔记
                 </a>
               
             
@@ -230,8 +230,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-06-28T23:04:08+08:00" content="2016-06-28">
-              2016-06-28
+            <time itemprop="dateCreated" datetime="2016-07-02T22:11:43+08:00" content="2016-07-02">
+              2016-07-02
             </time>
           </span>
 
@@ -277,18 +277,12 @@
 
       
         
-          <h1 id="对象的组合"><a href="#对象的组合" class="headerlink" title="对象的组合"></a>对象的组合</h1><h2 id="设计线程安全的类"><a href="#设计线程安全的类" class="headerlink" title="设计线程安全的类"></a>设计线程安全的类</h2><ul>
-<li>找出构成对象状态的所有变量</li>
-<li>找出约束状态变量的不变形条件</li>
-<li>建立对象状态的并发访问管理策略</li>
-</ul>
-<p>同步策略 (Synchronization Policy) : 如何在不违背对象不变条件或后验条件的情况下对其状态的访问操作进行协同。</p>
-<h3 id="收集同步需求"><a href="#收集同步需求" class="headerlink" title="收集同步需求"></a>收集同步需求</h3><blockquote>
-<p>如果不了解对象的不变性条件与后验条件，那么就不能确保线程安全性。 要满足在状态变量的有效值或状态转换上的各种约束条件， 就需要借助于原子性与封装性。</p>
-</blockquote>
-<h3 id="依赖状态的操作"><a href="#依赖状态的操作" class="headerlink" title="依赖状态的操作"></a>依赖状态的操作</h3><p>基于状态的先验条件 ( <code>Precondition</code> )</p>
+          <h1 id="基础构建模块"><a href="#基础构建模块" class="headerlink" title="基础构建模块"></a>基础构建模块</h1><h2 id="同步容器类"><a href="#同步容器类" class="headerlink" title="同步容器类"></a>同步容器类</h2><p><strong> Vector </strong> 和 <strong> Hashtable </strong>， 由 Collections.synchronizedXxx 等工厂方法创建。</p>
+<p>实现的方式： 封装状态， 同步所有公有方法，使得每次只有一个线程能访问容器的状态。</p>
+<h3 id="同步容器类的问题"><a href="#同步容器类的问题" class="headerlink" title="同步容器类的问题"></a>同步容器类的问题</h3><p>看一段代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// "先检查再运行"， 每个方法都先获得数组的大小， 通过结果来获取或删除最后一个元素</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">getLast</span><span class="params">(Vector list)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> lastIndex = list.size() - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> list.get(lastIndex);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">deleteLast</span><span class="params">(Vector list)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> lastIndex = list.size() - <span class="number">1</span>;</span><br><span class="line">    list.remove(lastIndex);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>问题：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A线程 --&gt; size = <span class="number">10</span>  -------------------&gt; get(<span class="number">9</span>) ---&gt; 报错</span><br><span class="line">B线程 --&gt; size = <span class="number">10</span>  -----&gt; remove(<span class="number">9</span>)</span><br><span class="line">如果有多个线程同时对这段代码进行操作的话，就会报错(ArrayyIndexOutOfBoundsException) 。</span><br></pre></td></tr></table></figure></p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/28/《并发编程-第4章-对象的组合》/#more" rel="contents">
+            <a class="btn" href="/2016/07/02/《并发编程-第-5-章-基础构建模块》读书笔记/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -335,237 +329,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/06/27/《并发编程-第三章-对象的共享》读书笔记/" itemprop="url">
-                  《并发编程 第三章 对象的共享》读书笔记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-06-27T21:58:47+08:00" content="2016-06-27">
-              2016-06-27
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Concurrent/" itemprop="url" rel="index">
-                    <span itemprop="name">Concurrent</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="如何安全地共享和发布对象"><a href="#如何安全地共享和发布对象" class="headerlink" title="如何安全地共享和发布对象"></a>如何安全地共享和发布对象</h1><p><strong> 同步 </strong> ： 内存可见性( Memory Visibility)</p>
-<h2 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h2><p>重排序(Reordering)</p>
-<h3 id="失效数据"><a href="#失效数据" class="headerlink" title="失效数据"></a>失效数据</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MutableInteger</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/27/《并发编程-第三章-对象的共享》读书笔记/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/26/《并发编程-第二章-线程安全性》-读书笔记/" itemprop="url">
-                  《并发编程 第二章 线程安全性》 读书笔记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-06-26T21:56:41+08:00" content="2016-06-26">
-              2016-06-26
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Concurrent/" itemprop="url" rel="index">
-                    <span itemprop="name">Concurrent</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="线程安全性"><a href="#线程安全性" class="headerlink" title="线程安全性"></a>线程安全性</h1><p>“<code>共享</code>“ 意味着 变量可以由多个线程同时访问<br>“<code>可变</code>“ 意味着 变量的值在其生命周期内可以发生变化</p>
-<p>一个对象是否需要是 线程安全 的， 取决于是否被多个线程访问。</p>
-<p>同步关键字  <code>synchronized</code>，<br>术语：</p>
-<ul>
-<li>volatile 类型变量</li>
-<li>显示锁(Explicit Lock)</li>
-<li>原子变量</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/26/《并发编程-第二章-线程安全性》-读书笔记/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/26/《Java并发编程实战第一章》读书笔记/" itemprop="url">
-                  《Java并发编程实战第一章》读书笔记
+                <a class="post-title-link" href="/2016/06/26/《Java并发编程实战1-4章基础知识》读书笔记/" itemprop="url">
+                  《Java并发编程实战 1 - 4 章 基础知识》读书笔记
                 </a>
               
             
@@ -625,7 +390,7 @@
 
       
         
-          <h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><h2 id="1-1-并发简史"><a href="#1-1-并发简史" class="headerlink" title="1.1 并发简史"></a>1.1 并发简史</h2><h3 id="为什么需要并发"><a href="#为什么需要并发" class="headerlink" title="为什么需要并发"></a>为什么需要并发</h3><p>充分<strong> 发挥 </strong>多处理器系统的强大计算能力。</p>
+          <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><h2 id="并发简史"><a href="#并发简史" class="headerlink" title="并发简史"></a>并发简史</h2><h3 id="为什么需要并发"><a href="#为什么需要并发" class="headerlink" title="为什么需要并发"></a>为什么需要并发</h3><p>充分<strong> 发挥 </strong>多处理器系统的强大计算能力。</p>
 <ul>
 <li>资源利用率<ul>
 <li>同时运行多个程序， 提高资源利用率</li>
@@ -642,7 +407,7 @@
 </ul>
 <p><code>高效</code>：在串行性和异步性之间找到合理的平衡。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/26/《Java并发编程实战第一章》读书笔记/#more" rel="contents">
+            <a class="btn" href="/2016/06/26/《Java并发编程实战1-4章基础知识》读书笔记/#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -778,11 +543,229 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/20/Java-异常/" itemprop="url">
+                  Java 异常
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-06-20T23:18:52+08:00" content="2016-06-20">
+              2016-06-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Foundamental/" itemprop="url" rel="index">
+                    <span itemprop="name">Foundamental</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="序"><a href="#序" class="headerlink" title="序"></a>序</h1><p>开发中一直纠结于选择受检异常，还是非受检异常，于是乎决定翻阅资料弥补这一知识弱点。<br>下文所有的信息均出自于 《Effective Java Second Edition》。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/06/20/Java-异常/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/05/27/Dbunit使用/" itemprop="url">
+                  Dbunit使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-05-27T15:48:28+08:00" content="2016-05-27">
+              2016-05-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Test/" itemprop="url" rel="index">
+                    <span itemprop="name">Test</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Dbunit"><a href="#Dbunit" class="headerlink" title="Dbunit"></a>Dbunit</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>DbUnit主页：<a href="http://dbunit.sourceforge.net/" target="_blank" rel="external">http://dbunit.sourceforge.net/</a><br>在平时项目开发中，少不了的一定是单元测试环节。<br>Test makes better.<br>每次修改功能或者增加新功能时，仅需要增加相应的Test代码，<br>将那些重复的测试工作交给代码，<br>覆盖率极高的单元测试之后随之而来的是BUG率减少，</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -823,7 +806,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
