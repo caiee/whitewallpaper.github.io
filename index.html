@@ -216,6 +216,239 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/24/七周七语言-Scala/" itemprop="url">
+                  七周七语言 Scala
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-24T22:43:29+08:00" content="2016-07-24">
+              2016-07-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Scala/" itemprop="url" rel="index">
+                    <span itemprop="name">Scala</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Scala-与-Java-关系"><a href="#Scala-与-Java-关系" class="headerlink" title="Scala 与 Java 关系"></a>Scala 与 Java 关系</h1><ul>
+<li>Scala 运行在 虚拟机上， 使得 Scala 可以和现存的应用同时运行</li>
+<li>Scala 可以直接使用 Java 类库</li>
+<li>都是静态类型语言</li>
+<li>语法较接近</li>
+<li>Scala 既 支持 面向对象范型， 也支持 函数式编程范型</li>
+</ul>
+<h1 id="不同之处"><a href="#不同之处" class="headerlink" title="不同之处"></a>不同之处</h1><ul>
+<li>类型推断， Scala 会尽可能 推断出 变量的类型</li>
+<li>函数式编程概念 高阶函数 (high order function)</li>
+<li>不变量 val</li>
+<li>高级程序构造 actor 模型， 作为一等对象类 (first-class) 的 XML 处理
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/24/七周七语言-Scala/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/09/并发编程-第二部分-结构化并发应用程序/" itemprop="url">
+                  并发编程 第二部分 结构化并发应用程序
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-09T16:38:47+08:00" content="2016-07-09">
+              2016-07-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Concurrent/" itemprop="url" rel="index">
+                    <span itemprop="name">Concurrent</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="任务执行"><a href="#任务执行" class="headerlink" title="任务执行"></a>任务执行</h1><p>围绕 “ <code>任务执行</code> “ 构造并发应用程序：任务通常是一些抽象的且离散的工作单元，<br>可分解为多个任务， 简化程序的组织结构，提供一种自然的事务边界来优化错误恢复过程，以及提供一种自然的并行工作结构来提升并发性</p>
+<h2 id="在线程中执行任务"><a href="#在线程中执行任务" class="headerlink" title="在线程中执行任务"></a>在线程中执行任务</h2><p>在设计结构时，先清晰的找出任务边界。<br>各个任务之间相互独立，不依赖于其他任务的状态、结果或边界效应。<br>独立性有助于实现并发。</p>
+<p>正常的负载情况下， 服务器应用程序应该是 <code>良好的吞吐量</code> 和 <code>快速的响应性</code> 共存。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/09/并发编程-第二部分-结构化并发应用程序/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/02/《并发编程-第-5-章-基础构建模块》读书笔记/" itemprop="url">
                   《并发编程 第 5 章 基础构建模块》读书笔记
                 </a>
@@ -543,224 +776,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/20/Java-异常/" itemprop="url">
-                  Java 异常
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-06-20T23:18:52+08:00" content="2016-06-20">
-              2016-06-20
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Foundamental/" itemprop="url" rel="index">
-                    <span itemprop="name">Foundamental</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="序"><a href="#序" class="headerlink" title="序"></a>序</h1><p>开发中一直纠结于选择受检异常，还是非受检异常，于是乎决定翻阅资料弥补这一知识弱点。<br>下文所有的信息均出自于 《Effective Java Second Edition》。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/20/Java-异常/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/27/Dbunit使用/" itemprop="url">
-                  Dbunit使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-05-27T15:48:28+08:00" content="2016-05-27">
-              2016-05-27
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Test/" itemprop="url" rel="index">
-                    <span itemprop="name">Test</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Dbunit"><a href="#Dbunit" class="headerlink" title="Dbunit"></a>Dbunit</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>DbUnit主页：<a href="http://dbunit.sourceforge.net/" target="_blank" rel="external">http://dbunit.sourceforge.net/</a><br>在平时项目开发中，少不了的一定是单元测试环节。<br>Test makes better.<br>每次修改功能或者增加新功能时，仅需要增加相应的Test代码，<br>将那些重复的测试工作交给代码，<br>覆盖率极高的单元测试之后随之而来的是BUG率减少，</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -806,7 +821,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -814,7 +829,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>

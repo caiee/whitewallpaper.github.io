@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="并发," />
+  <meta name="keywords" content="Scala," />
 
 
 
@@ -57,16 +57,49 @@
 
 
 
-<meta name="description">
+<meta name="description" content="Scala 与 Java 关系
+Scala 运行在 虚拟机上， 使得 Scala 可以和现存的应用同时运行
+Scala 可以直接使用 Java 类库
+都是静态类型语言
+语法较接近
+Scala 既 支持 面向对象范型， 也支持 函数式编程范型
+
+不同之处
+类型推断， Scala 会尽可能 推断出 变量的类型
+函数式编程概念 高阶函数 (high order function)
+不变量 val
+高级程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《七周七并发模型》读书笔记.md">
-<meta property="og:url" content="http://caie.github.io/2016/03/24/《七周七并发模型》读书笔记-md/index.html">
+<meta property="og:title" content="七周七语言 Scala">
+<meta property="og:url" content="http://caie.github.io/2016/07/24/七周七语言-Scala/index.html">
 <meta property="og:site_name" content="蔡萼的学习记录">
-<meta property="og:description">
-<meta property="og:updated_time" content="2016-04-23T12:37:05.000Z">
+<meta property="og:description" content="Scala 与 Java 关系
+Scala 运行在 虚拟机上， 使得 Scala 可以和现存的应用同时运行
+Scala 可以直接使用 Java 类库
+都是静态类型语言
+语法较接近
+Scala 既 支持 面向对象范型， 也支持 函数式编程范型
+
+不同之处
+类型推断， Scala 会尽可能 推断出 变量的类型
+函数式编程概念 高阶函数 (high order function)
+不变量 val
+高级程">
+<meta property="og:updated_time" content="2016-07-24T15:27:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="《七周七并发模型》读书笔记.md">
-<meta name="twitter:description">
+<meta name="twitter:title" content="七周七语言 Scala">
+<meta name="twitter:description" content="Scala 与 Java 关系
+Scala 运行在 虚拟机上， 使得 Scala 可以和现存的应用同时运行
+Scala 可以直接使用 Java 类库
+都是静态类型语言
+语法较接近
+Scala 既 支持 面向对象范型， 也支持 函数式编程范型
+
+不同之处
+类型推断， Scala 会尽可能 推断出 变量的类型
+函数式编程概念 高阶函数 (high order function)
+不变量 val
+高级程">
 
 
 
@@ -84,7 +117,7 @@
   };
 </script>
 
-  <title> 《七周七并发模型》读书笔记.md | 蔡萼的学习记录 </title>
+  <title> 七周七语言 Scala | 蔡萼的学习记录 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -214,7 +247,7 @@
             
             
               
-                《七周七并发模型》读书笔记.md
+                七周七语言 Scala
               
             
           </h1>
@@ -226,8 +259,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-03-24T15:57:31+08:00" content="2016-03-24">
-              2016-03-24
+            <time itemprop="dateCreated" datetime="2016-07-24T22:43:29+08:00" content="2016-07-24">
+              2016-07-24
             </time>
           </span>
 
@@ -240,8 +273,8 @@
               <span class="post-meta-item-text">In</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Concurrent/" itemprop="url" rel="index">
-                    <span itemprop="name">Concurrent</span>
+                  <a href="/categories/Scala/" itemprop="url" rel="index">
+                    <span itemprop="name">Scala</span>
                   </a>
                 </span>
 
@@ -272,7 +305,21 @@
       
 
       
-        
+        <h1 id="Scala-与-Java-关系"><a href="#Scala-与-Java-关系" class="headerlink" title="Scala 与 Java 关系"></a>Scala 与 Java 关系</h1><ul>
+<li>Scala 运行在 虚拟机上， 使得 Scala 可以和现存的应用同时运行</li>
+<li>Scala 可以直接使用 Java 类库</li>
+<li>都是静态类型语言</li>
+<li>语法较接近</li>
+<li>Scala 既 支持 面向对象范型， 也支持 函数式编程范型</li>
+</ul>
+<h1 id="不同之处"><a href="#不同之处" class="headerlink" title="不同之处"></a>不同之处</h1><ul>
+<li>类型推断， Scala 会尽可能 推断出 变量的类型</li>
+<li>函数式编程概念 高阶函数 (high order function)</li>
+<li>不变量 val</li>
+<li>高级程序构造 actor 模型， 作为一等对象类 (first-class) 的 XML 处理<a id="more"></a>
+</li>
+</ul>
+
       
     </div>
 
@@ -286,7 +333,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/并发/" rel="tag">#并发</a>
+            <a href="/tags/Scala/" rel="tag">#Scala</a>
           
         </div>
       
@@ -295,17 +342,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/13/开发框架遐想/" rel="next" title="开发帮助拓展">
-                <i class="fa fa-chevron-left"></i> 开发帮助拓展
+              <a href="/2016/07/09/并发编程-第二部分-结构化并发应用程序/" rel="next" title="并发编程 第二部分 结构化并发应用程序">
+                <i class="fa fa-chevron-left"></i> 并发编程 第二部分 结构化并发应用程序
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/26/《git学习记录》/" rel="prev" title="Git学习记录">
-                Git学习记录 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -373,7 +416,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -381,7 +424,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -442,7 +485,7 @@
               
             
             
-              <p class="post-toc-empty">This post does not have a Table of Contents</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Scala-与-Java-关系"><span class="nav-number">1.</span> <span class="nav-text">Scala 与 Java 关系</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不同之处"><span class="nav-number">2.</span> <span class="nav-text">不同之处</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
