@@ -1,0 +1,727 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Scala," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="这是啥一个用Scala语言编写的CodeAnalyzer，记录从零开始的学习历程。
+准备工作SBT / Scala的常用构建工具
+
+http://www.scala-sbt.org/
+
+Repox / 国人开发的解决 SBT 下载依赖 过慢的问题
+
+https://github.com/Centaur/repox/wiki/%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scala Tutorial(Code Analyzer)">
+<meta property="og:url" content="http://caie.github.io/2016/08/28/scala-tutorial/index.html">
+<meta property="og:site_name" content="蔡萼的学习记录">
+<meta property="og:description" content="这是啥一个用Scala语言编写的CodeAnalyzer，记录从零开始的学习历程。
+准备工作SBT / Scala的常用构建工具
+
+http://www.scala-sbt.org/
+
+Repox / 国人开发的解决 SBT 下载依赖 过慢的问题
+
+https://github.com/Centaur/repox/wiki/%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97">
+<meta property="og:updated_time" content="2016-08-31T07:41:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scala Tutorial(Code Analyzer)">
+<meta name="twitter:description" content="这是啥一个用Scala语言编写的CodeAnalyzer，记录从零开始的学习历程。
+准备工作SBT / Scala的常用构建工具
+
+http://www.scala-sbt.org/
+
+Repox / 国人开发的解决 SBT 下载依赖 过慢的问题
+
+https://github.com/Centaur/repox/wiki/%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6321109203595298000,
+      author: '主编大人'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://caie.github.io/2016/08/28/scala-tutorial/"/>
+
+  <title> Scala Tutorial(Code Analyzer) | 蔡萼的学习记录 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">蔡萼的学习记录</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">where notes noting</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Scala Tutorial(Code Analyzer)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-08-28T23:05:43+08:00" content="2016-08-28">
+              2016-08-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Scala/" itemprop="url" rel="index">
+                    <span itemprop="name">Scala</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/28/scala-tutorial/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/28/scala-tutorial/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="这是啥"><a href="#这是啥" class="headerlink" title="这是啥"></a>这是啥</h2><p>一个用Scala语言编写的<code>CodeAnalyzer</code>，<br>记录从零开始的学习历程。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p><strong>SBT</strong> / Scala的常用构建工具</p>
+<blockquote>
+<p><a href="http://www.scala-sbt.org/" target="_blank" rel="external">http://www.scala-sbt.org/</a></p>
+</blockquote>
+<p><strong>Repox</strong> / 国人开发的解决 <code>SBT</code> 下载依赖 过慢的问题</p>
+<blockquote>
+<p><a href="https://github.com/Centaur/repox/wiki/%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97" target="_blank" rel="external">https://github.com/Centaur/repox/wiki/%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97</a></p>
+</blockquote>
+<a id="more"></a>
+<p><strong>idea</strong></p>
+<blockquote>
+<p><a href="https://www.jetbrains.com/idea/" target="_blank" rel="external">https://www.jetbrains.com/idea/</a></p>
+</blockquote>
+<p><strong>Scala Console</strong> / 国人开发的Scala图形化界面，在这个界面中可以快速的调试代码</p>
+<blockquote>
+<p><a href="https://github.com/Centaur/scalaconsole" target="_blank" rel="external">https://github.com/Centaur/scalaconsole</a></p>
+</blockquote>
+<p><strong>Scala Cookbook </strong> 解决问题的好帮手</p>
+<h2 id="构建一个简单的Scala-Test环境"><a href="#构建一个简单的Scala-Test环境" class="headerlink" title="构建一个简单的Scala Test环境"></a>构建一个简单的Scala Test环境</h2><p>源代码：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ce.practice</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">  * @author caie</span><br><span class="line">  * @since</span><br><span class="line">  */</span></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">HelloWorld</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">App</span> &#123;</span></span><br><span class="line">  println(<span class="string">"Hello World. Scala."</span>)</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">add</span>(</span>x: <span class="type">Int</span>, y: <span class="type">Int</span>):<span class="type">Int</span> = x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>测试类：<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> ce.practice</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.scalatest.&#123;<span class="type">FunSpec</span>, <span class="type">ShouldMatchers</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">  * @author caie</span><br><span class="line">  * @since</span><br><span class="line">  */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloWorldTest</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">FunSpec</span> <span class="keyword"><span class="keyword">with</span></span> <span class="title">ShouldMatchers</span> &#123;</span></span><br><span class="line"></span><br><span class="line">  describe(<span class="string">"Hello World"</span>) &#123; <span class="comment">// describe 写 要测试的类名</span></span><br><span class="line">    it(<span class="string">"can add two numbers int"</span>) &#123; <span class="comment">// it， 测试的方法做什么事情</span></span><br><span class="line">      <span class="type">HelloWorld</span>.add(<span class="number">1</span>, <span class="number">2</span>) shouldBe <span class="number">3</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="SBT使用相关"><a href="#SBT使用相关" class="headerlink" title="SBT使用相关"></a>SBT使用相关</h2><h3 id="命令简单执行"><a href="#命令简单执行" class="headerlink" title="命令简单执行"></a>命令简单执行</h3><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">sbt <span class="comment">// 进入 SBT 交互环境</span></span><br><span class="line">run <span class="comment">// 运行object类中的代码</span></span><br><span class="line">testOnly <span class="comment">// 运行测试类中的代码</span></span><br><span class="line">last <span class="comment">// 最后一个执行的命令</span></span><br><span class="line">console <span class="comment">// 进入 Scala REPL 环境， 在工程下的 SBT 输入，则会带有该工程的代码</span></span><br><span class="line">:q <span class="comment">// 回到前一级</span></span><br><span class="line">~test <span class="comment">// 监控代码， 代码更改后， 自动跑测试</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 当当前工程下有多个 Main 函数时， 执行 run 命令，SBT会出现让你选择执行哪一个的选项</span></span><br><span class="line">mainClass in (<span class="type">Compile</span>, run) := <span class="type">Some</span>(<span class="string">"ce.practice.HelloWorld"</span>) <span class="comment">// 通过这个来指定 run 的类</span></span><br><span class="line"><span class="comment">// 与下面的一样</span></span><br><span class="line">run-main <span class="keyword">package</span> + <span class="class"><span class="keyword">class</span></span><br><span class="line"></span><span class="comment">// 还可以</span></span><br><span class="line">sbt <span class="string">"run-main package + class"</span></span><br></pre></td></tr></table></figure>
+<h3 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h3><blockquote>
+<p>addSbtPlugin(“com.eed3si9n” % “sbt-assembly” % “0.14.3”)</p>
+</blockquote>
+<p>打成一个大的Jar包， 执行时 使用 java -jar XXX</p>
+<h2 id="Scala语法与概念"><a href="#Scala语法与概念" class="headerlink" title="Scala语法与概念"></a>Scala语法与概念</h2><p>class<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SourceCode</span>(</span><span class="keyword">val</span> name: <span class="type">String</span>, <span class="keyword">val</span> age: <span class="type">Int</span>) &#123;</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">count</span>:</span> <span class="type">Int</span> = age + age * <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>case class<br>一般使用时内部不会有方法， 字段默认 val<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">case</span> <span class="class"><span class="keyword">class</span> <span class="title">SourceCode</span>(</span>name: <span class="type">String</span>, age: <span class="type">Int</span>) &#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">count</span>:</span> <span class="type">Int</span> = age + age * <span class="number">2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>object<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">SourceCode</span> &#123;</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">fromSth</span>(</span>name: <span class="type">String</span>, age: <span class="type">Int</span>): <span class="type">SourceCode</span> = <span class="keyword">new</span> <span class="type">SourceCode</span>(name, age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>iterator<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> scala.io._</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> it = <span class="type">Source</span>.fromFile(<span class="string">"XXX"</span>)</span><br><span class="line">it.length <span class="comment">// 110</span></span><br><span class="line">it.length <span class="comment">// 0, iterator 不允许重复调用</span></span><br></pre></td></tr></table></figure></p>
+<p>fold 折叠运算<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">List</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>).foldLeft(<span class="number">0</span>)(_ + _)</span><br><span class="line">res3: <span class="type">Int</span> = <span class="number">6</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> map = <span class="type">Map</span>(<span class="string">"0"</span> -&gt; <span class="number">1</span>, <span class="string">"2"</span> -&gt; <span class="number">3</span>, <span class="string">"3"</span> -&gt; <span class="number">4</span>)</span><br><span class="line">map.foldLeft(<span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> (x, (k, v)) =&gt; x + v</span><br><span class="line">&#125;</span><br><span class="line">res3: <span class="number">8</span></span><br></pre></td></tr></table></figure></p>
+<p>List[+A]: 形变<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Fruit</span></span><br><span class="line"></span><span class="class"><span class="keyword">class</span> <span class="title">Apple</span> <span class="keyword"><span class="keyword">extends</span></span> <span class="title">Fruit</span></span><br><span class="line"></span></span><br><span class="line"><span class="type">List</span>[<span class="type">Apple</span>] 和 <span class="type">List</span>[<span class="type">Fruit</span>] 关系？</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">accept</span>(</span>xs: <span class="type">List</span>[<span class="type">Any</span>]): <span class="type">List</span>[<span class="type">Any</span>] = xs</span><br><span class="line"><span class="keyword">val</span> l: <span class="type">List</span>[<span class="type">Int</span>] = <span class="type">List</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">accept(l) <span class="comment">// 没问题</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">acceptMk1</span>(</span>xs: <span class="type">Set</span>[<span class="type">Any</span>]): <span class="type">Set</span>[<span class="type">Any</span>] = xs</span><br><span class="line">acceptMk1(<span class="type">Set</span>[<span class="type">Int</span>](<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)) <span class="comment">// 编译报错， (trait Set is invariant)</span></span><br></pre></td></tr></table></figure></p>
+<p>trait Function1[-T1, +R] extends AnyRef<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">example</span><br></pre></td></tr></table></figure></p>
+<p>高阶函数， 方法不能独自存在，从属于一个对象<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add1</span>(</span>x: <span class="type">Int</span>): <span class="type">Int</span> = x + <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> add1Mk1: <span class="type">Int</span> =&gt; <span class="type">Int</span> = &#123; x =&gt; x + <span class="number">1</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">accept</span>[</span><span class="type">A</span>, <span class="type">B</span>](x: <span class="type">A</span>)(f: <span class="type">A</span> =&gt; <span class="type">B</span>): <span class="type">B</span> = f(x)</span><br><span class="line"></span><br><span class="line">accept(<span class="number">1</span>)(x =&gt; x + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 偏函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span>(</span>x: <span class="type">Int</span>)(y: <span class="type">Int</span>): <span class="type">Int</span> = x + y</span><br><span class="line"><span class="keyword">val</span> add11 = add(<span class="number">1</span>) _</span><br><span class="line">add11(<span class="number">12</span>) <span class="comment">// res41: Int = 13</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compose</span>[</span><span class="type">A</span>, <span class="type">B</span>, <span class="type">C</span>](f1: <span class="type">A</span> =&gt; <span class="type">B</span>)(f2: <span class="type">B</span> =&gt; <span class="type">C</span>): <span class="type">A</span> =&gt; <span class="type">C</span> = &#123;</span><br><span class="line">    x =&gt; f2(f1(x))</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">val</span> addMult = compose((x: <span class="type">Int</span>) =&gt; x + <span class="number">1</span>)((x: <span class="type">Int</span>) =&gt; x + <span class="number">2</span>)</span><br><span class="line">addMult(<span class="number">3</span>)</span><br><span class="line"><span class="comment">// res66: Int = 8</span></span><br></pre></td></tr></table></figure></p>
+<p>包对象<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> <span class="class"><span class="keyword">object</span> <span class="title">tutor</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">type</span> <span class="title">Path</span> =</span> <span class="type">String</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Scala/" rel="tag">#Scala</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/24/七周七语言-Scala/" rel="next" title="七周七语言 Scala">
+                <i class="fa fa-chevron-left"></i> 七周七语言 Scala
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/08/28/scala-tutorial/"
+     data-title="Scala Tutorial(Code Analyzer)"
+     data-content=""
+     data-url="http://caie.github.io/2016/08/28/scala-tutorial/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/28/scala-tutorial/"
+           data-title="Scala Tutorial(Code Analyzer)" data-url="http://caie.github.io/2016/08/28/scala-tutorial/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/cece.jpeg"
+               alt="蔡萼" />
+          <p class="site-author-name" itemprop="name">蔡萼</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/whitewallpaper" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/cai-e-62" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#这是啥"><span class="nav-number">1.</span> <span class="nav-text">这是啥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建一个简单的Scala-Test环境"><span class="nav-number">3.</span> <span class="nav-text">构建一个简单的Scala Test环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SBT使用相关"><span class="nav-number">4.</span> <span class="nav-text">SBT使用相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令简单执行"><span class="nav-number">4.1.</span> <span class="nav-text">命令简单执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打包"><span class="nav-number">4.2.</span> <span class="nav-text">打包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scala语法与概念"><span class="nav-number">5.</span> <span class="nav-text">Scala语法与概念</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">蔡萼</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"ccce"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
